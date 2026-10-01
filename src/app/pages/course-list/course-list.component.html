@@ -1,0 +1,71 @@
+<main class="container">
+  <section class="page-head">
+    <div>
+      <h1>Cursos</h1>
+      <p>{{ courses.length }} cursos cadastrados</p>
+    </div>
+  </section>
+  <div class="toolbar">
+    <div class="search">
+      ⌕
+      <input
+        [(ngModel)]="searchTerm"
+        (input)="search()"
+        placeholder="Buscar por nome..."
+      />
+    </div>
+    <button class="icon-btn" [class.active]="grid" (click)="grid = true">
+      ▦</button
+    ><button class="icon-btn" [class.active]="!grid" (click)="grid = false">
+      ☷
+    </button>
+  </div>
+  <p *ngIf="loading" class="muted">Carregando...</p>
+  <section
+    *ngIf="!loading && courses.length"
+    class="course-grid"
+    [class.list]="!grid"
+  >
+    <article class="course-card" *ngFor="let course of courses">
+      <div class="card-actions">
+        <a [routerLink]="['/courses', course.id, 'edit']" title="Editar">✎</a
+        ><button (click)="deleteTarget = course" title="Excluir">⌫</button>
+      </div>
+      <span class="badge">{{ course.category || "CURSO" }}</span
+      ><a class="course-title" [routerLink]="['/courses', course.id]">{{
+        course.name
+      }}</a>
+      <p>{{ course.description }}</p>
+      <div class="meta">
+        <span>▦ {{ course.modules.length }} módulos</span
+        ><span>▷ {{ lessons(course) }} aulas</span>
+      </div>
+    </article>
+  </section>
+  <section *ngIf="!loading && !courses.length" class="empty">
+    <div class="empty-icon">▱</div>
+    <h2>{{ searchTerm ? "Nenhum resultado" : "Nenhum curso ainda" }}</h2>
+    <p>
+      {{
+        searchTerm ? "Tente outra busca." : "Comece criando seu primeiro curso."
+      }}
+    </p>
+    <a *ngIf="!searchTerm" routerLink="/courses/new" class="btn primary"
+      >＋ CRIAR PRIMEIRO CURSO</a
+    >
+  </section>
+</main>
+<div class="modal-backdrop" *ngIf="deleteTarget">
+  <div class="modal">
+    <div class="danger-icon">⌫</div>
+    <h2>Excluir curso</h2>
+    <p>
+      Tem certeza que deseja excluir <b>“{{ deleteTarget.name }}”</b>? Essa ação
+      não poderá ser desfeita.
+    </p>
+    <div class="modal-actions">
+      <button class="btn ghost" (click)="deleteTarget = null">Cancelar</button
+      ><button class="btn danger" (click)="confirmDelete()">⌫ EXCLUIR</button>
+    </div>
+  </div>
+</div>

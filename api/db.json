@@ -1,0 +1,80 @@
+{
+  "courses": [
+    {
+      "id": "1",
+      "name": "Reactive Forms com Angular",
+      "description": "Aprenda a criar formulários reativos com Angular utilizando FormGroup, FormArray e validators na prática.",
+      "category": "Frontend",
+      "modules": [
+        {
+          "id": "m1",
+          "name": "Fundamentos do Angular",
+          "lessons": [
+            {
+              "id": "l1",
+              "name": "Introdução ao Angular"
+            },
+            {
+              "id": "l2",
+              "name": "Componentes e Templates"
+            }
+          ]
+        },
+        {
+          "id": "m2",
+          "name": "Reactive Forms",
+          "lessons": [
+            {
+              "id": "l3",
+              "name": "FormGroup e FormControl"
+            },
+            {
+              "id": "l4",
+              "name": "FormArray dinâmico"
+            },
+            {
+              "id": "l5",
+              "name": "Validators customizados"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "2",
+      "name": "API REST com Spring Boot",
+      "description": "Construa APIs robustas com Java, Spring Boot, JPA e boas práticas de arquitetura.",
+      "category": "Backend",
+      "modules": [
+        {
+          "id": "m3",
+          "name": "Fundamentos do Spring Boot",
+          "lessons": [
+            {
+              "id": "58a20417-960f-4d73-ae73-4d7207e3f657",
+              "name": "Criando o projeto"
+            },
+            {
+              "id": "841aabaf-e0cc-4865-8c52-e0efba283693",
+              "name": "Controllers e Rotas"
+            }
+          ]
+        },
+        {
+          "id": "m4",
+          "name": "Persistência com JPA",
+          "lessons": [
+            {
+              "id": "cea04dfc-7c42-4f19-a983-16336477c947",
+              "name": "Entidades e Relacionamentos"
+            },
+            {
+              "id": "90c44cfc-acba-4637-b343-a2eddcfeff60",
+              "name": "Repositories e Queries"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

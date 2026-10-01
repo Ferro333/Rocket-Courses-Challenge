@@ -1,0 +1,114 @@
+<main class="container form-page">
+  <div class="breadcrumbs">
+    <a routerLink="/">CURSOS</a>　›　{{ id ? "EDITAR" : "NOVO CURSO" }}
+  </div>
+  <h1>{{ id ? "Editar curso" : "Criar novo curso" }}</h1>
+  <p>Preencha as informações e organize os módulos e aulas.</p>
+  <form [formGroup]="form" (ngSubmit)="save()">
+    <section class="form-section">
+      <div class="section-title">
+        <b>01</b>
+        <div>
+          <h2>Informações do curso</h2>
+          <p>Dados gerais que identificam seu curso</p>
+        </div>
+      </div>
+      <div class="two-cols">
+        <label
+          >NOME DO CURSO *<input
+            formControlName="name"
+            placeholder="Ex: Desenvolvimento Web Full Stack"
+          /><small class="error" *ngIf="submitted && form.controls.name.invalid"
+            >Nome do curso obrigatório</small
+          ></label
+        ><label
+          >CATEGORIA<input
+            formControlName="category"
+            placeholder="Ex: Frontend, Backend..."
+        /></label>
+      </div>
+      <label
+        >DESCRIÇÃO *<textarea
+          formControlName="description"
+          placeholder="Descreva o que o aluno irá aprender"
+        ></textarea
+        ><small
+          class="error"
+          *ngIf="submitted && form.controls.description.invalid"
+          >Descrição deve ter no mínimo 10 caracteres</small
+        ></label
+      >
+    </section>
+    <section class="form-section">
+      <div class="section-title">
+        <b>02</b>
+        <div>
+          <h2>Módulos e aulas</h2>
+          <p>Organize o conteúdo do curso por módulos e suas aulas</p>
+        </div>
+      </div>
+      <div formArrayName="modules">
+        <div
+          class="module-form"
+          *ngFor="let module of modules.controls; let i = index"
+          [formGroupName]="i"
+        >
+          <div class="module-top">
+            <b>MÓDULO {{ i + 1 }}</b
+            ><button
+              type="button"
+              class="text-danger"
+              (click)="removeModule(i)"
+              *ngIf="modules.length > 1"
+            >
+              × Remover módulo
+            </button>
+          </div>
+          <label
+            >NOME DO MÓDULO *<input
+              formControlName="name"
+              placeholder="Ex: Fundamentos do HTML"
+            /><small
+              class="error"
+              *ngIf="submitted && module.get('name')?.invalid"
+              >Nome do módulo obrigatório</small
+            ></label
+          >
+          <div formArrayName="lessons">
+            <label>AULAS</label>
+            <div
+              class="lesson-input"
+              *ngFor="let lesson of lessons(i).controls; let j = index"
+              [formGroupName]="j"
+            >
+              <span>▷</span
+              ><input
+                formControlName="name"
+                placeholder="Nome da aula"
+              /><button
+                type="button"
+                (click)="removeLesson(i, j)"
+                *ngIf="lessons(i).length > 1"
+              >
+                ×
+              </button>
+            </div>
+          </div>
+          <button type="button" class="add-lesson" (click)="addLesson(i)">
+            ＋ AULA
+          </button>
+        </div>
+      </div>
+      <button type="button" class="add-module" (click)="addModule()">
+        ＋ Adicionar módulo
+      </button>
+    </section>
+    <p class="error" *ngIf="apiError">{{ apiError }}</p>
+    <div class="form-actions">
+      <a routerLink="/" class="btn ghost">Cancelar</a
+      ><button class="btn primary" type="submit">
+        {{ id ? "SALVAR ALTERAÇÕES" : "CRIAR CURSO" }}
+      </button>
+    </div>
+  </form>
+</main>

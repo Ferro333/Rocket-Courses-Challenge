@@ -1,0 +1,35 @@
+<main class="container narrow" *ngIf="course">
+  <a routerLink="/" class="back">‹ Voltar</a>
+  <section class="detail-card">
+    <div>
+      <span class="badge">{{ course.category || "CURSO" }}</span>
+      <h1>{{ course.name }}</h1>
+      <p>{{ course.description }}</p>
+      <div class="meta">
+        <span>▦ {{ course.modules.length }} módulos</span
+        ><span>▷ {{ lessons() }} aulas</span>
+      </div>
+    </div>
+    <a class="btn primary" [routerLink]="['/courses', course.id, 'edit']"
+      >✎ EDITAR CURSO</a
+    >
+  </section>
+  <section
+    class="module-detail"
+    *ngFor="let module of course.modules; let i = index"
+  >
+    <button class="module-header" (click)="toggle(i)">
+      <span
+        ><b>{{ (i + 1).toString().padStart(2, "0") }}</b>
+        {{ module.name }}</span
+      ><small>{{ module.lessons.length }} aulas　⌄</small>
+    </button>
+    <div
+      class="lesson-row"
+      *ngFor="let lesson of module.lessons"
+      [hidden]="!open.has(i)"
+    >
+      ✓　{{ lesson.name }}
+    </div>
+  </section>
+</main>
